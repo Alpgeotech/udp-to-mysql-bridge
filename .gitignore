@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Python venv
+pyvenv.cfg
+lib
+lib64
+include
+bin
