@@ -1,0 +1,13 @@
+# INSTRUCTIONS
+
+# Follow the following instructions ON the raspberry shake!
+
+# create requirements file with 
+#   pip freeze -r ./requirements.txt
+
+# download offline packages with
+#   pip download -r ./requirements.txt -d ./offline_packages
+
+## The following requirements were added by pip freeze:
+pyserial==3.5
+tomli==2.0.1
