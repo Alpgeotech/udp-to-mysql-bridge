@@ -37,6 +37,7 @@ class UdpReceiver:
         try:
             data = self.sock.recv(MAX_ETHERNET_FRAME_SIZE)
             data = data.decode('UTF-8')
+            logger.debug(data)
             self.__update_udp_last_seen_file_for_rsh_watchdog()
             return data
         except UnicodeDecodeError as e:

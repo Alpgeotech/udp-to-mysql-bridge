@@ -1,5 +1,5 @@
 [general]
-log_level = "info"
+log_level = "debug"
 log_location = "./log"
 console_output = false
 
@@ -12,5 +12,5 @@ password = "mysql"
 
 
 [udp]
-ip_address = "192.168.3.111"
+ip_address = "192.168.178.43"
 port = 8888

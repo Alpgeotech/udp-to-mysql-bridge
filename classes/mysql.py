@@ -1,7 +1,5 @@
 import pymysql.cursors
 
-from lib import classes
-
 import logging
 
 logger = logging.getLogger(__name__)

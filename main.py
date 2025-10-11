@@ -1,4 +1,7 @@
 import sys
+import os
+import logging
+import logging.handlers
 
 from classes import mysql
 
@@ -10,7 +13,7 @@ except ImportError:
     except ImportError:
         sys.exit
 
-from classes import serial_transmitter
+# from classes import serial_transmitter
 from classes import udp_receiver
 
 
@@ -66,11 +69,11 @@ database_caller = mysql.MySql(mysql_settings_dict)
 try: 
     while 1:
         dataset = receiver.read()
-
+        print(dataset)
         #TODO: parse data here
 
 
-        database_caller.insertDataset(dataset)
+        # database_caller.insertDataset(dataset)
 
 finally:
     receiver.close()
