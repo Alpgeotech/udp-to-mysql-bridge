@@ -1,0 +1,16 @@
+[general]
+log_level = "info"
+log_location = "./log"
+console_output = false
+
+
+[mysql]
+host = "localhost"
+port = 3306
+user = "mysql"
+password = "mysql"
+
+
+[udp]
+ip_address = "192.168.3.111"
+port = 8888
