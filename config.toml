@@ -1,16 +1,18 @@
 [general]
-log_level = "debug"
+log_level = "warning"
 log_location = "./log"
 console_output = false
 
 
 [mysql]
-host = "localhost"
-port = 3306
-user = "mysql"
-password = "mysql"
+host_address = "192.168.178.71"
+port_number = 3306
+username = "root"
+password = "fPNnSnzq"
+database = "rs_local_test"
 
 
 [udp]
 ip_address = "192.168.178.43"
 port = 8888
+udp_last_seen_file = "./udp_last_seen.tmp"

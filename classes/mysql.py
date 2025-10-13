@@ -13,7 +13,9 @@ class MySql:
         self.username = mySqlSettingsDict["username"]
         self.password = mySqlSettingsDict["password"]
         self.database = mySqlSettingsDict["database"]
-        self.connection = None  
+        self.connection = None
+        self.sample_id = 1
+        self.datagram_id = 1
 
     def getConnectionState(self):
         return self.__connectionState
@@ -77,16 +79,23 @@ class MySql:
 
         return self.__connectionState, connectionStateChanged
 
-    def insertDataset(self, dataset):
-        insertPurchase = (
-            "INSERT INTO udp_data (product_id, user_id, price_then, price_factor_then) VALUES (%s, %s, %s, %s)"
+    def insertDataset(self, channel_identifier, timestamp, dataset):
+        for sample in dataset:
+            self.__insertSample(channel_identifier, timestamp, sample)
+        self.connection.commit()
+        self.datagram_id += 1
+
+    def __insertSample(self, channel_identifier, timestamp, sample):
+        insertSample = (
+            "INSERT INTO udp_data_ehz (sample_id_rs, datagram_id_rs, timestamp_rs, value) VALUES (%s, %s, %s, %s)"
         )
         try:
-            logger.debug(self.dictCursor.mogrify(insertPurchase, ( product.id, user.id, product.price, user.price_factor) ))
-            self.dictCursor.execute(insertPurchase, ( product.id, user.id, product.price, user.price_factor) )
+            logger.debug(self.dictCursor.mogrify(insertSample, (  self.sample_id, self.datagram_id, timestamp, sample, ) ))
+            self.dictCursor.execute(insertSample, (self.sample_id, self.datagram_id, timestamp, sample, ) )
+            self.sample_id += 1
             return True
         except Exception as err:
             self.connection.rollback()
-            logger.error("Failed to insert purchase into database:")
+            logger.error("Failed to insert sample into database:")
             logger.error(err)
             return False

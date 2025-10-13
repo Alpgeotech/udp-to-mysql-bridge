@@ -15,6 +15,7 @@ except ImportError:
 
 # from classes import serial_transmitter
 from classes import udp_receiver
+from classes import data_tools
 
 
 with open("config.toml", "rb") as f:
@@ -63,17 +64,24 @@ sys.excepthook = handle_exception
 logger.warning("=========== NEW START OF udp-to-serial-converter ===========")
 
 receiver = udp_receiver.UdpReceiver(udp_settings_dict)
+processor = data_tools.DataProcessor()
 database_caller = mysql.MySql(mysql_settings_dict)
-
 
 try: 
     while 1:
+
+        database_state, database_state_change = database_caller.ensureDatabaseConnection()
+
+        if database_state_change:
+            logger.debug(f"database_state_change: {database_state_change}")
+            logger.debug(f"database_active: {database_state}")
+            continue
+
         dataset = receiver.read()
-        print(dataset)
-        #TODO: parse data here
-
-
-        # database_caller.insertDataset(dataset)
+        channel_identifier, timestamp, dataset = processor.cleanup_dataset(dataset)
+        if channel_identifier == "EHZ":
+            database_caller.insertDataset(channel_identifier, timestamp, dataset)
+        
 
 finally:
     receiver.close()
