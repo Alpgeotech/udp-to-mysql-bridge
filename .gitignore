@@ -212,3 +212,6 @@ lib
 lib64
 include
 bin
+
+# Logs
+log
