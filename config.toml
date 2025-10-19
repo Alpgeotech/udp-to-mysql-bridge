@@ -13,6 +13,6 @@ database = "rs_local_test"
 
 
 [udp]
-ip_address = "192.168.178.43"
+ip_address = "192.168.178.71"
 port = 8888
 udp_last_seen_file = "./udp_last_seen.tmp"
