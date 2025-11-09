@@ -61,7 +61,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 
 sys.excepthook = handle_exception
 
-logger.warning("=========== NEW START OF udp-to-serial-converter ===========")
+logger.warning("=========== NEW START OF udp-to-mysql-converter ===========")
 
 receiver = udp_receiver.UdpReceiver(udp_settings_dict)
 processor = data_tools.DataProcessor()
